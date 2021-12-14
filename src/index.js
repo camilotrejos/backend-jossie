@@ -17,7 +17,8 @@ app.use(express.json());
 
 
 // Routes
-app.use("/api/task", require("./routes/task.routes"))
+app.use("/api/servicios", require("./routes/servicios.routes"))
+app.use("/api/barberos", require("./routes/barberos.routes"))
 
 // Static files
 app.use(express.static(path.join(__dirname, "public")))
