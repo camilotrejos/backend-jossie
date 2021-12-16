@@ -6,8 +6,6 @@ const { mongoose }  = require("./database");
 
 const app = express();
 
-
-
 // Settings
 app.set("port", process.env.PORT || 3000)
 
@@ -19,6 +17,7 @@ app.use(express.json());
 // Routes
 app.use("/api/servicios", require("./routes/servicios.routes"))
 app.use("/api/barberos", require("./routes/barberos.routes"))
+app.use("/api/users", require("./routes/usuarios.routes"))
 
 // Static files
 app.use(express.static(path.join(__dirname, "public")))

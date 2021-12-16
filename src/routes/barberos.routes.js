@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Barberos = require("../models/barberos");
 
-
 // GET todos los barberos
 router.get("/", async (req,res) => {
 
@@ -48,6 +47,7 @@ router.delete("/:id_barbero", async (req,res) => {
     await Barberos.findOneAndDelete({ id_barbero: req.params.id_barbero});
     res.json({status: "eliminado"});
 });
+
 
 
 module.exports = router;

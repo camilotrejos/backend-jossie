@@ -44,7 +44,6 @@ router.put("/:id_servicio", async (req,res) => {
 
 // DELETE para eliminar Servicios
 router.delete("/:id_servicio", async (req,res) => {
-    
     await Servicios.findOneAndRemove( { id_servicio: req.params.id_servicio } );
     res.json({status: "eliminado"});
 });
