@@ -4,11 +4,13 @@ const { Schema } = mongoose;
 
 const usuariosSchema = new Schema({
 
-    nombre: {type: String, required: true},
-    apellido: {type: String, required: true},
-    email: {type: String, required: true},
-    rol: {type: String, required: true},
-    password: {type: String, required: true}
+    id_usuario: {type: Number, required: true},
+    nombres_usuario: {type: String, required: true},
+    apellidos_usuario: {type: String, required: true},
+    email_usuario: {type: String, required: true},
+    celular_usuario: {type: Number, required: true},
+    password_usuario: {type: String, required: true},
+    estado_usuario: {type: String, required: true} //Activo-Inactivo
     
 });
 
@@ -16,7 +18,7 @@ const usuariosSchema = new Schema({
 usuariosSchema.pre("save",async function(next){
     const salt = await genSalt(10); //10 numero de veces que se cifra
     console.log(salt);
-    this.password = await hash(this.password, salt);
+    this.password_usuario = await hash(this.password_usuario, salt);
     next();
 })
 
