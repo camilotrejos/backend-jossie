@@ -4,14 +4,14 @@ const { Schema } = mongoose;
 
 const usuariosSchema = new Schema({
 
-    id_usuario: {type: Number, required: true},
+/*     id_usuario: {type: Number, required: true}, */
     nombres_usuario: {type: String, required: true},
     apellidos_usuario: {type: String, required: true},
-    email_usuario: {type: String, required: true},
+    email_usuario: {type: String, required: true, unique: true},
     celular_usuario: {type: Number, required: true},
     password_usuario: {type: String, required: true},
-    estado_usuario: {type: String, required: true} //Activo-Inactivo
-    
+    estado_usuario: {type: Boolean, required: true}, //Activo-Inactivo
+    rol_usuario:{type: String, required: true}
 });
 
 //Aqui se cifra la contraseña

@@ -13,18 +13,37 @@ router.get("/", async (req,res) => {
 });
 
 // GET de un solo usuario por id_barbero
-router.get("/:id_usuario", async (req,res) => {
+router.get("/:_id", async (req,res) => {
 
-    const usuario = await Usuarios.find({ id_usuario: req.params.id_usuario });
+    const usuario = await Usuarios.find({ _id: req.params._id });
     res.json(usuario);
 
 });
 
 //Guardar usuario
 router.post("/guardar", async (req,res) => {
-    const {id_usuario, nombres_usuario, apellidos_usuario, email_usuario, celular_usuario, password_usuario, estado_usuario} = req.body;
-    const user = new Usuarios({id_usuario, nombres_usuario, apellidos_usuario, email_usuario, celular_usuario, password_usuario, estado_usuario});
-    console.log(user);
+    const {
+        /* id_usuario, */ 
+        nombres_usuario, 
+        apellidos_usuario, 
+        email_usuario, 
+        celular_usuario, 
+        password_usuario, 
+        estado_usuario = true,
+        rol_usuario = 'user'} = req.body;
+
+    const user = new Usuarios({
+        /* id_usuario,  */
+        nombres_usuario, 
+        apellidos_usuario, 
+        email_usuario, 
+        celular_usuario, 
+        password_usuario, 
+        estado_usuario,
+        rol_usuario});
+        
+    /* console.log(user); */
+
     user.save(function (error) {
         if (error) {
             return res.status(401).send({
@@ -40,19 +59,35 @@ router.post("/guardar", async (req,res) => {
 });
 
 // PUT para modificar usuarios
-router.put("/:id_usuario", async (req,res) => {
+router.put("/:_id", async (req,res) => {
 
-    const { id_usuario, nombres_usuario, apellidos_usuario, email_usuario, celular_usuario, password_usuario, estado_usuario } = req.body;
-    const newUser = { id_usuario, nombres_usuario, apellidos_usuario, email_usuario, celular_usuario, password_usuario, estado_usuario };
-    await Usuarios.findOneAndUpdate({ id_usuario: req.params.id_usuario}, newUser);
+    const { 
+        nombres_usuario, 
+        apellidos_usuario, 
+        email_usuario, 
+        celular_usuario, 
+        password_usuario, 
+        estado_usuario,
+        rol_usuario} = req.body;
+
+    const newUser = { 
+        nombres_usuario, 
+        apellidos_usuario, 
+        email_usuario, 
+        celular_usuario, 
+        password_usuario, 
+        estado_usuario,
+        rol_usuario };
+
+    await Usuarios.findOneAndUpdate({ _id: req.params._id}, newUser);
     res.json({status: "actualizado"});
 
 });
 
 // DELETE para eliminar usuarios
-router.delete("/:id_usuario", async (req,res) => {
+router.delete("/:_id", async (req,res) => {
     
-    await Usuarios.findOneAndDelete({ id_usuario: req.params.id_usuario});
+    await Usuarios.findOneAndDelete({ _id: req.params._id});
     res.json({status: "eliminado"});
 
 });
@@ -60,7 +95,10 @@ router.delete("/:id_usuario", async (req,res) => {
 //Loguin
 router.post("/login", async function (req, res) {
     try {
-        const { email_usuario, password_usuario } = req.body;
+        const { 
+            email_usuario, 
+            password_usuario } = req.body;
+
         const user = await Usuarios.findOne({ email_usuario })
         console.log(user);
        
@@ -75,8 +113,11 @@ router.post("/login", async function (req, res) {
         console.log(passok);
         if (passok) {
             const token = sign({
-                nombre:user.email_usuario
-            },"misecreto")
+                _id: user._id,
+                email:user.email_usuario,
+                rol: user.rol_usuario}, 
+                "misecreto")
+
             return res.status(200).send({
                 estado: "ok",
                 msg: "Logueado Contraseña Correcta",

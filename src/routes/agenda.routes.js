@@ -5,23 +5,41 @@ const Agenda = require("../models/agenda");
 // GET de todos los registros de reservas
 router.get("/", async (req,res) => {
  
-    const agenda = await Agenda.find();
+    const agenda = await Agenda.find().populate('usuario_reserva', 'servicio_reserva', 'barbero_reserva' );
     res.json(agenda);
  
 });
 
 // GET de una sola reserva
-router.get("/:id_reserva", async (req,res) => {
+router.get("/:_id", async (req,res) => {
 
-    const agenda = await Agenda.find({ id_reserva: req.params.id_reserva });
+    const agenda = await Agenda.find({ _id: req.params._id }).populate('usuario_reserva', 'servicio_reserva', 'barbero_reserva' );
     res.json(agenda);
 
 });
 
 //Guardar reserva
 router.post("/agendar", async (req,res) => {
-    const {id_reserva, dia_reserva, mes_reserva, anio_reserva, usuario_reserva, servicio_reserva, barbero_reserva, estado_reserva} = req.body;
-    const agenda = new Agenda({id_reserva, dia_reserva, mes_reserva, anio_reserva, usuario_reserva, servicio_reserva, barbero_reserva, estado_reserva});
+    const {
+        dia_reserva, 
+        mes_reserva, 
+        anio_reserva, 
+        usuario_reserva, 
+        servicio_reserva, 
+        barbero_reserva, 
+        estado_reserva = true,
+        completado = false} = req.body;
+
+    const agenda = new Agenda({
+        dia_reserva, 
+        mes_reserva, 
+        anio_reserva, 
+        usuario_reserva, 
+        servicio_reserva, 
+        barbero_reserva, 
+        estado_reserva,
+        completado});
+
     console.log(agenda);
     agenda.save(function (error) {
         if (error) {
@@ -38,19 +56,36 @@ router.post("/agendar", async (req,res) => {
 });
 
 // PUT para modificar cita en agenda
-router.put("/:id_reserva", async (req,res) => {
+router.put("/:_id", async (req,res) => {
 
-    const {id_reserva, dia_reserva, mes_reserva, anio_reserva, usuario_reserva, servicio_reserva, barbero_reserva, estado_reserva} = req.body;
-    const newReserva = { id_reserva, dia_reserva, mes_reserva, anio_reserva, usuario_reserva, servicio_reserva, barbero_reserva, estado_reserva };
-    await Agenda.findOneAndUpdate({ id_usuario: req.params.id_usuario}, newReserva);
+    const {
+        dia_reserva, 
+        mes_reserva, 
+        anio_reserva, 
+        usuario_reserva, 
+        servicio_reserva, 
+        barbero_reserva, 
+        estado_reserva,
+        completado} = req.body;
+
+    const newReserva = { 
+        dia_reserva, 
+        mes_reserva, 
+        anio_reserva, 
+        usuario_reserva, 
+        servicio_reserva, 
+        barbero_reserva, 
+        estado_reserva,
+        completado };
+    await Agenda.findOneAndUpdate({ _id: req.params._id}, newReserva);
     res.json({status: "actualizado"});
 
 });
 
 // DELETE para eliminar reserva
-router.delete("/:id_reserva", async (req,res) => {
+router.delete("/:_id", async (req,res) => {
     
-    await Agenda.findOneAndDelete({ id_reserva: req.params.id_reserva});
+    await Agenda.findOneAndDelete({ _id: req.params._id});
     res.json({status: "eliminado"});
 
 });

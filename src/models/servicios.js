@@ -3,8 +3,8 @@ const { Schema } = mongoose;
 
 const ServiciosSchema = new Schema({
 
-    id_servicio: {type: Number, required: true},
-    nombre_servicio: {type: String, required: true},
+    /* id_servicio: {type: Number, required: true}, */
+    nombre_servicio: {type: String, required: true, unique: true},
     url_imagen_servicio: {type: String, required: true},
     descripcion_servicio: {type: String, required: true},
     costo_servicio: {type: Number, required: true}

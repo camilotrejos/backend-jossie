@@ -11,9 +11,9 @@ router.get("/", async (req,res) => {
 });
 
 // GET de un solo servicio por id_servicio
-router.get("/:id_servicio", async (req,res) => {
+router.get("/:_id", async (req,res) => {
 
-    const serv = await Servicios.find( { id_servicio: req.params.id_servicio } );
+    const serv = await Servicios.find( { _id: req.params._id } );
     res.json(serv);
 
 });
@@ -22,8 +22,20 @@ router.get("/:id_servicio", async (req,res) => {
 // POST para añadir Servicios
 router.post("/", async (req,res) => {
 
-    const { id_servicio, nombre_servicio, url_imagen_servicio, descripcion_servicio, costo_servicio } = req.body;
-    const serv = new Servicios({id_servicio, nombre_servicio, url_imagen_servicio, descripcion_servicio, costo_servicio});
+    const { 
+        /* id_servicio, */ 
+        nombre_servicio, 
+        url_imagen_servicio, 
+        descripcion_servicio, 
+        costo_servicio } = req.body;
+
+    const serv = new Servicios({
+        /* id_servicio, */ 
+        nombre_servicio, 
+        url_imagen_servicio, 
+        descripcion_servicio, 
+        costo_servicio});
+
     await serv.save();
     res.json({status: "guardado"});
 
@@ -31,19 +43,29 @@ router.post("/", async (req,res) => {
 
 
 // PUT para modificar Servicios
-router.put("/:id_servicio", async (req,res) => {
+router.put("/:_id", async (req,res) => {
 
-    const {id_servicio, nombre_servicio, url_imagen_servicio, descripcion_servicio, costo_servicio} = req.body;
-    const newServ = { id_servicio, nombre_servicio, url_imagen_servicio, descripcion_servicio, costo_servicio };
-    await Servicios.findOneAndUpdate( { id_servicio: req.params.id_servicio }, newServ);
+    const {
+        nombre_servicio, 
+        url_imagen_servicio, 
+        descripcion_servicio, 
+        costo_servicio} = req.body;
+        
+    const newServ = {  
+        nombre_servicio, 
+        url_imagen_servicio, 
+        descripcion_servicio, 
+        costo_servicio };
+
+    await Servicios.findOneAndUpdate( { _id: req.params._id }, newServ);
     res.json({status: "actualizado"});
 
 });
 
 
 // DELETE para eliminar Servicios
-router.delete("/:id_servicio", async (req,res) => {
-    await Servicios.findOneAndRemove( { id_servicio: req.params.id_servicio } );
+router.delete("/:_id", async (req,res) => {
+    await Servicios.findOneAndRemove( { _id: req.params._id } );
     res.json({status: "eliminado"});
 });
 

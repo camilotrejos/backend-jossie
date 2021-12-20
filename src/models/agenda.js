@@ -1,16 +1,26 @@
 const mongoose = require("mongoose");
+const barberos = require("./barberos");
+const servicios = require("./servicios");
+const usuarios = require("./usuarios");
 const { Schema } = mongoose;
 
 const AgendaSchema = new Schema({
 
-    id_reserva: {type: Number, required: true},
+/*     id_reserva: {type: Number, required: true}, */
     dia_reserva: {type: Number, required: true},
     mes_reserva: {type: Number, required: true},
     anio_reserva: {type: Number, required: true},
-    usuario_reserva: {type: String, required: true},
-    servicio_reserva: {type: String, required: true},
-    barbero_reserva: {type: String, required: true},
-    estado_reserva: {type: String, required: true} //Ejecutado-Pendiente-En curso
+    usuario_reserva: {
+        type: Schema.Types.ObjectID, 
+        ref: usuarios},
+    servicio_reserva:{
+        type: Schema.Types.ObjectID,
+        ref: servicios},
+    barbero_reserva: {
+        type: Schema.Types.ObjectID,
+        ref: barberos},
+    estado_reserva: {type: Boolean, required: true}, //Ejecutado-Pendiente-En curso
+    completado:{type: Boolean, required:true}
       
 });
 
