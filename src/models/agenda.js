@@ -19,7 +19,8 @@ const AgendaSchema = new Schema({
         type: Schema.Types.ObjectID,
         ref: barberos},
     estado_reserva: {type: Boolean, required: true}, //Ejecutado-Pendiente-En curso
-    completado:{type: Boolean, required:true}
+    completado:{type: Boolean, required:true},
+    comentario: {type:String, required:true}
       
 });
 

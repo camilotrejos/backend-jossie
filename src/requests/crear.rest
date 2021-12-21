@@ -25,3 +25,27 @@ POST http://localhost:8080/api/barberos/
     "apellidos_barbero": "Velez",  
     "id_servicio_barbero": "61c12acbe60fd2b1d9627881" 
 }
+
+POST http://localhost:8080/api/users/guardar/
+
+
+{
+
+    "nombres_usuario":"Silfredo", 
+    "apellidos_usuario":"Godoy", 
+    "email_usuario":"godoy@gmail", 
+    "celular_usuario":123, 
+    "password_usuario":"123", 
+
+}
+
+{
+
+    "nombres_usuario":"Pedro", 
+    "apellidos_usuario":"Picapiedra", 
+    "email_usuario":"picapiedra@gmail", 
+    "celular_usuario":123, 
+    "password_usuario":"456", 
+
+}
+
