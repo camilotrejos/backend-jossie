@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 
 const usuariosSchema = new Schema({
 
-/*     id_usuario: {type: Number, required: true}, */
     nombres_usuario: {type: String, required: true},
     apellidos_usuario: {type: String, required: true},
     email_usuario: {type: String, required: true, unique: true},
@@ -21,5 +20,6 @@ usuariosSchema.pre("save",async function(next){
     this.password_usuario = await hash(this.password_usuario, salt);
     next();
 })
+
 
 module.exports = mongoose.model("users", usuariosSchema );

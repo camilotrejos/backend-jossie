@@ -6,7 +6,6 @@ const { Schema } = mongoose;
 
 const AgendaSchema = new Schema({
 
-/*     id_reserva: {type: Number, required: true}, */
     dia_reserva: {type: Number, required: true},
     mes_reserva: {type: Number, required: true},
     anio_reserva: {type: Number, required: true},

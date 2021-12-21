@@ -4,12 +4,11 @@ const { Schema } = mongoose;
 
 const BarberosSchema = new Schema({
 
-    /* id_barbero: {type: Number, required: true}, */
     nombres_barbero: {type: String, required: true},
     apellidos_barbero: {type: String, required: true},
     estado_barbero: {type: Boolean, required: true}, //Activo o no Activo
     id_servicio_barbero: {
-        type: Schema.Types.ObjetctId, 
+        type: Schema.Types.ObjectID, 
         ref: servicios}
       
 });

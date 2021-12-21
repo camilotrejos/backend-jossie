@@ -3,6 +3,7 @@ const router = express.Router();
 const Usuarios = require("../models/usuarios");
 const { compare } = require('bcrypt');
 const { sign } = require('jsonwebtoken');
+const { genSalt, hash } = require("bcrypt");
  
 // GET de todos los usuarios
 router.get("/", async (req,res) => {
@@ -23,7 +24,7 @@ router.get("/:_id", async (req,res) => {
 //Guardar usuario
 router.post("/guardar", async (req,res) => {
     const {
-        /* id_usuario, */ 
+
         nombres_usuario, 
         apellidos_usuario, 
         email_usuario, 
@@ -33,7 +34,7 @@ router.post("/guardar", async (req,res) => {
         rol_usuario = 'user'} = req.body;
 
     const user = new Usuarios({
-        /* id_usuario,  */
+        
         nombres_usuario, 
         apellidos_usuario, 
         email_usuario, 
@@ -41,8 +42,7 @@ router.post("/guardar", async (req,res) => {
         password_usuario, 
         estado_usuario,
         rol_usuario});
-        
-    /* console.log(user); */
+
 
     user.save(function (error) {
         if (error) {
@@ -58,7 +58,6 @@ router.post("/guardar", async (req,res) => {
 })
 });
 
-// PUT para modificar usuarios
 router.put("/:_id", async (req,res) => {
 
     const { 
@@ -66,16 +65,15 @@ router.put("/:_id", async (req,res) => {
         apellidos_usuario, 
         email_usuario, 
         celular_usuario, 
-        password_usuario, 
         estado_usuario,
         rol_usuario} = req.body;
+
 
     const newUser = { 
         nombres_usuario, 
         apellidos_usuario, 
         email_usuario, 
         celular_usuario, 
-        password_usuario, 
         estado_usuario,
         rol_usuario };
 

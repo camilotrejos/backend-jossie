@@ -23,14 +23,14 @@ router.get("/:_id", async (req,res) => {
 router.post("/", async (req,res) => {
 
     const { 
-        /* id_servicio, */ 
+       
         nombre_servicio, 
         url_imagen_servicio, 
         descripcion_servicio, 
         costo_servicio } = req.body;
 
     const serv = new Servicios({
-        /* id_servicio, */ 
+    
         nombre_servicio, 
         url_imagen_servicio, 
         descripcion_servicio, 

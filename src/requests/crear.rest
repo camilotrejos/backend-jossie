@@ -1,0 +1,27 @@
+POST http://localhost:8080/api/users/guardar 
+
+{
+    "nombres_usuario": "Juan Camilo",
+    "apellidos_usuario": "Trejos",
+    "email_usuario": "trejos@gmail", 
+    "celular_usuario": 123, 
+    "password_usuario": "123"
+}
+
+
+POST http://localhost:8080/api/servicios/ 
+
+{
+    "nombre_servicio": "Barba", 
+    "url_imagen_servicio":"Barba", 
+    "descripcion_servicio": "La mejor barba", 
+    "costo_servicio": 200
+}
+
+
+POST http://localhost:8080/api/barberos/ 
+
+{   "nombres_barbero": "Sebastian", 
+    "apellidos_barbero": "Velez",  
+    "id_servicio_barbero": "61c12acbe60fd2b1d9627881" 
+}

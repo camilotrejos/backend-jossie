@@ -22,14 +22,14 @@ router.get("/:_id", async (req,res) => {
 router.post("/", async (req,res) => {
 
     const { 
-        /* id_barbero, */ 
+      
         nombres_barbero, 
         apellidos_barbero, 
         estado_barbero = true, 
         id_servicio_barbero } = req.body;
 
     const barb = new Barberos({
-        /* id_barbero,  */
+    
         nombres_barbero, 
         apellidos_barbero, 
         estado_barbero, 
